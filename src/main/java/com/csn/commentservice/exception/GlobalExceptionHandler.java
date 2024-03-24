@@ -1,6 +1,6 @@
 package com.csn.commentservice.exception;
 
-import com.csn.commentservice.dto.ErrorResponseDto;
+import com.csn.commentservice.controller.dto.ErrorResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

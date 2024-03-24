@@ -1,11 +1,10 @@
 package com.csn.commentservice.service;
 
-import com.csn.commentservice.dto.CommentDto;
+import com.csn.commentservice.controller.dto.CommentDto;
 import com.csn.commentservice.entity.Comment;
 import com.csn.commentservice.exception.ResourceNotFoundException;
 import com.csn.commentservice.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
