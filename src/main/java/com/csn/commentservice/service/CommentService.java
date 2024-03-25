@@ -5,19 +5,22 @@ import com.csn.commentservice.entity.Comment;
 import com.csn.commentservice.exception.ResourceNotFoundException;
 import com.csn.commentservice.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CommentService {
     private final CommentRepository commentRepository;
 
     public void createComment(CommentDto commentDto){
         Comment comment = Comment.builder()
                         .content(commentDto.getContent()).build();
-        commentRepository.save(comment);
+        Comment createdComment = commentRepository.save(comment);
+        log.info("Comment created with id of {}",createdComment.getId());
     }
 
     public CommentDto fetchComment(Long id){
@@ -33,7 +36,8 @@ public class CommentService {
         if(OptionalComment.isPresent()){
             Comment comment = OptionalComment.get();
             comment.setContent(commentDto.getContent());
-            commentRepository.save(comment);
+            Comment updatedComment = commentRepository.save(comment);
+            log.info("Comment updated with id of {}",updatedComment.getId());
         } else {
            throw new ResourceNotFoundException("comment","id",id.toString());
         }
@@ -44,6 +48,7 @@ public class CommentService {
         Optional<Comment> comment = commentRepository.findById(id);
         if(comment.isPresent()){
             commentRepository.deleteById(id);
+            log.info("Comment deleted with id of {}",id);
         } else {
             throw new ResourceNotFoundException("comment","id",id.toString());
         }
