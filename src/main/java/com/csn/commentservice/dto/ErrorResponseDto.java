@@ -1,4 +1,4 @@
-package com.csn.commentservice.controller.dto;
+package com.csn.commentservice.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

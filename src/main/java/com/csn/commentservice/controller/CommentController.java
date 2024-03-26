@@ -1,7 +1,7 @@
 package com.csn.commentservice.controller;
 
-import com.csn.commentservice.controller.dto.CommentDto;
-import com.csn.commentservice.controller.dto.ResponseDto;
+import com.csn.commentservice.dto.CommentDto;
+import com.csn.commentservice.dto.ResponseDto;
 import com.csn.commentservice.service.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
