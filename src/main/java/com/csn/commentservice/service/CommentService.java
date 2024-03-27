@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,15 +20,18 @@ public class CommentService {
 
     public void createComment(CommentDto commentDto){
         Comment comment = Comment.builder()
-                        .content(commentDto.getContent()).build();
+                        .content(commentDto.getContent())
+                        .postId(commentDto.getPostId()).build();
         Comment createdComment = commentRepository.save(comment);
         log.info("Comment created with id of {}",createdComment.getId());
     }
 
-    public CommentDto fetchComment(Long id){
-        Optional<Comment> comment = commentRepository.findById(id);
-        if(comment.isPresent()){
-            return CommentDto.builder().content(comment.get().getContent()).build();
+    public List<CommentDto> fetchComment(Long id){
+        Optional<List<Comment>> comments = commentRepository.findAllByPostId(id);
+        if(comments.isPresent() && !comments.get().isEmpty()){
+            return comments.get().stream().map(comment -> CommentDto.builder()
+                    .content(comment.getContent())
+                    .postId(comment.getPostId()).build()).collect(Collectors.toList());
         }
         throw new ResourceNotFoundException("comment","id",id.toString());
     }
@@ -52,5 +57,10 @@ public class CommentService {
         } else {
             throw new ResourceNotFoundException("comment","id",id.toString());
         }
+    }
+
+    public void deleteAllComments(Long id){
+        commentRepository.deleteAllByPostId(id);
+        log.info("Comments deleted with id of {}",id.toString());
     }
 }

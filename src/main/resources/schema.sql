@@ -1,6 +1,7 @@
 use commentdb;
 CREATE TABLE IF NOT EXISTS `comment` (
                            `id` bigint NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                           `post_id` bigint NOT NULL,
                            `content` varchar(1024) NOT NULL,
                            `created_at` datetime NOT NULL,
                            `created_by` varchar(255) NOT NULL,

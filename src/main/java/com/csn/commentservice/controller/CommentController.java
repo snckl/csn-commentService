@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(
         name = "CRUD API for post service of CSN",
         description = "Create fetch patch delete for comment details"
@@ -50,8 +52,8 @@ public class CommentController {
             description = "HTTP Status OK"
     )
     @GetMapping("/{id}")
-    public ResponseEntity<CommentDto> fetchComment(@PathVariable("id") Long id){
-        CommentDto commentDto = commentService.fetchComment(id);
+    public ResponseEntity<List<CommentDto>> fetchComment(@PathVariable("id") Long id){
+        List<CommentDto> commentDto = commentService.fetchComment(id);
         return ResponseEntity
                 .status(HttpStatus.FOUND)
                 .body(commentDto);
@@ -97,5 +99,13 @@ public class CommentController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new ResponseDto("200","Comment deleted"));
+    }
+
+    @DeleteMapping("/p/{id}")
+    public ResponseEntity<ResponseDto> deleteAllComments(@PathVariable("id") Long id){
+        commentService.deleteAllComments(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new ResponseDto("200","Comments deleted"));
     }
 }
