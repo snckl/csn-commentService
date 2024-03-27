@@ -55,7 +55,7 @@ public class CommentController {
     public ResponseEntity<List<CommentDto>> fetchComment(@PathVariable("id") Long id){
         List<CommentDto> commentDto = commentService.fetchComment(id);
         return ResponseEntity
-                .status(HttpStatus.FOUND)
+                .status(HttpStatus.OK)
                 .body(commentDto);
     }
 
