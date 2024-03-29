@@ -42,6 +42,6 @@ eureka:
 
 info:
   app:
-    name: "comment"
+    name: "comment-service"
     description: "CSN Comment Application"
     version: "1.0.0"

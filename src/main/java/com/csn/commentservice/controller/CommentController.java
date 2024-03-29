@@ -22,7 +22,7 @@ import java.util.List;
         description = "Create fetch patch delete for comment details"
 )
 @RestController
-@RequestMapping(path = "/api/v1/comment",produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/v1",produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @Validated
 public class CommentController {
