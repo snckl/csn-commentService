@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ import java.util.List;
 @RequestMapping(path = "/api/v1",produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @Validated
+@Slf4j
 public class CommentController {
 
     private final CommentService commentService;
@@ -52,7 +54,8 @@ public class CommentController {
             description = "HTTP Status OK"
     )
     @GetMapping("/{id}")
-    public ResponseEntity<List<CommentDto>> fetchComment(@PathVariable("id") Long id){
+    public ResponseEntity<List<CommentDto>> fetchComment(@PathVariable("id") Long id,@RequestHeader("csn-correlation-id") String correlationId){
+        log.debug("csn-correlation-id found: {}",correlationId);
         List<CommentDto> commentDto = commentService.fetchComment(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
